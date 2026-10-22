@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anthony Salame – Systems & Cloud</title>
+  <meta name="description" content="Anthony Salame – Systems & Cloud Administration (Azure). Labs, internships and projects.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container">
+    <a href="#" class="logo">anthony<span>.cloud</span></a>
+    <nav>
+      <ul>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#labs">Labs</a></li>
+        <li class="hide-sm"><a href="#projects">Projects</a></li>
+        <li class="hide-sm"><a href="#skills">Skills</a></li>
+        <li><a href="deploy.html">How it's built</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="container">
+      <span class="badge">Open to an 80-day internship – Systems / Cloud</span>
+      <h1>Anthony Salame<br><span>Systems & Cloud Administrator (Azure)</span></h1>
+      <p class="lead">
+        Master's student in Cloud, Security & Infrastructure at Ynov Campus Sophia Antipolis.
+        I deploy and run infrastructure on Microsoft Azure and on-premise: Active Directory,
+        Microsoft 365, networking, VPN and firewalls, and I automate the boring parts with PowerShell.
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="mailto:anthony.salameh2005@gmail.com">Contact me</a>
+        <a class="btn" href="https://linkedin.com/in/anthony-salameh-21b314324" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="CV_Anthony_Salame.pdf" target="_blank">Download CV</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><strong>2 IT internships</strong><span>Cloud, AD, networking</span></div>
+        <div class="stat"><strong>AZ-104</strong><span>In preparation</span></div>
+        <div class="stat"><strong>French B2 · English</strong><span>Arabic native</span></div>
+        <div class="stat"><strong>Antibes (06)</strong><span>Antibes → Monaco</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <h2>Experience</h2>
+      <p class="sub">Hands-on work on real infrastructure, in the cloud and on-premise.</p>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>IT Intern – Born Interactive</h3>
+          <div class="meta">Beirut, Lebanon · Jun 2025 – Jul 2025</div>
+          <ul>
+            <li>Managed Active Directory users and groups; configured GPOs to enforce security policies.</li>
+            <li>Administered Microsoft 365: accounts, licensing and security settings.</li>
+            <li>Deployed Azure virtual machines and web apps; configured DNS records (A, CNAME, MX).</li>
+            <li>Set up SSL certificates and an Azure Site-to-Site VPN for hybrid connectivity.</li>
+            <li>Provided technical support and troubleshooting.</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">Azure</span><span class="tag">Active Directory</span>
+            <span class="tag">GPO</span><span class="tag">Microsoft 365</span><span class="tag">VPN</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>IT Intern – Difco Group</h3>
+          <div class="meta">Ferzol, Lebanon · Jun 2024 – Aug 2024</div>
+          <ul>
+            <li>Designed and installed a complete network cabinet.</li>
+            <li>Configured Cisco routers and deployed MikroTik point-to-point wireless links.</li>
+            <li>Installed an NVR system with IP cameras.</li>
+            <li>Configured and managed a pfSense firewall virtualized on VMware.</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">Cisco</span><span class="tag">MikroTik</span>
+            <span class="tag">pfSense</span><span class="tag">VMware</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LABS -->
+  <section id="labs">
+    <div class="container">
+      <h2>Labs & write-ups</h2>
+      <p class="sub">What I built, how, and what I learned. Click a lab to open it.</p>
+
+      <div class="card lab">
+        <details>
+          <summary><h3>Automating Uptime ticket closure with PowerShell</h3></summary>
+          <div class="body">
+            <span class="tag wip">In progress</span>
+            <h4>Problem</h4>
+            <p>Administrators were closing monitoring tickets by hand after checking why a server had restarted. Repetitive work that takes time away from real incidents.</p>
+            <h4>What I did</h4>
+            <ul>
+              <li>Analysed how admins closed past tickets to find the common restart reasons.</li>
+              <li>Writing a PowerShell script, triggered by the monitoring check, that reads the restart reason on the server.</li>
+              <li>Goal: close expected restarts automatically and escalate only the unexpected ones.</li>
+            </ul>
+            <h4>Skills</h4>
+            <div class="tags"><span class="tag">PowerShell</span><span class="tag">Monitoring</span><span class="tag">Windows event logs</span><span class="tag">ITSM</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="card lab">
+        <details>
+          <summary><h3>Azure Site-to-Site VPN for hybrid connectivity</h3></summary>
+          <div class="body">
+            <h4>Goal</h4>
+            <p>Connect an on-premise network to Azure securely, so internal resources can reach cloud VMs over private IPs.</p>
+            <h4>Architecture</h4>
+            <ul>
+              <li>Azure Virtual Network with a dedicated GatewaySubnet.</li>
+              <li>Virtual Network Gateway (route-based) and a Local Network Gateway describing the on-prem side.</li>
+              <li>IPsec/IKE connection with a pre-shared key; on-prem device configured to match.</li>
+            </ul>
+            <h4>What I learned</h4>
+            <p>Address-space planning matters: overlapping ranges break routing. Checking the connection status and effective routes is the fastest way to debug.</p>
+            <div class="tags"><span class="tag">Azure VNet</span><span class="tag">VPN Gateway</span><span class="tag">IPsec</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="card lab">
+        <details>
+          <summary><h3>Active Directory & Group Policy</h3></summary>
+          <div class="body">
+            <h4>Goal</h4>
+            <p>Manage users and machines centrally and enforce security settings.</p>
+            <h4>What I did</h4>
+            <ul>
+              <li>Organized users and computers into OUs and security groups.</li>
+              <li>Created GPOs for password policy, drive mappings and workstation restrictions.</li>
+              <li>Verified results with <code>gpresult /r</code> and <code>gpupdate /force</code>.</li>
+            </ul>
+            <div class="tags"><span class="tag">Windows Server</span><span class="tag">AD DS</span><span class="tag">GPO</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="card lab">
+        <details>
+          <summary><h3>pfSense firewall on VMware</h3></summary>
+          <div class="body">
+            <h4>Goal</h4>
+            <p>Protect a company network with a virtualized firewall.</p>
+            <h4>What I did</h4>
+            <ul>
+              <li>Deployed pfSense as a VM with separate WAN and LAN interfaces.</li>
+              <li>Configured firewall rules, NAT and DHCP.</li>
+              <li>Tested rules from the LAN and reviewed firewall logs.</li>
+            </ul>
+            <div class="tags"><span class="tag">pfSense</span><span class="tag">VMware</span><span class="tag">Firewall rules</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="card lab">
+        <details>
+          <summary><h3>This website: Terraform + GitHub Actions on Azure</h3></summary>
+          <div class="body">
+            <p>The site you're reading is deployed as code. Full details on the <a href="deploy.html">How it's built</a> page.</p>
+            <div class="tags"><span class="tag">Terraform</span><span class="tag">Azure Storage</span><span class="tag">GitHub Actions</span></div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <h2>Projects</h2>
+      <p class="sub">Applications I built and hosted on Azure.</p>
+      <div class="grid three">
+        <div class="card">
+          <h3>Medilink</h3>
+          <div class="meta">Final-year project</div>
+          <p>Healthcare platform for patients, doctors and hospitals with AI clinical assistants.</p>
+          <div class="tags"><span class="tag">App Service</span><span class="tag">Azure SQL</span><span class="tag">Blob Storage</span><span class="tag">Azure OpenAI</span></div>
+        </div>
+        <div class="card">
+          <h3>E-Services</h3>
+          <div class="meta">Multi-agency platform</div>
+          <p>Online administrative document requests with payments and status tracking.</p>
+          <div class="tags"><span class="tag">App Service</span><span class="tag">Azure SQL</span><span class="tag">Blob Storage</span></div>
+        </div>
+        <div class="card">
+          <h3>E-commerce platform</h3>
+          <div class="meta">Personal project</div>
+          <p>Full-stack shop with a self-hosted AI assistant (local Ollama model), deployed on Azure.</p>
+          <div class="tags"><span class="tag">Next.js</span><span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">Azure</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <h2>Skills</h2>
+      <div class="grid two">
+        <div class="card"><h3>Cloud</h3><div class="skill-row">
+          <span class="tag">Azure VMs</span><span class="tag">App Service</span><span class="tag">VNet & VPN</span><span class="tag">Azure SQL</span><span class="tag">Blob Storage</span><span class="tag">Storage static website</span><span class="tag">Docker (basics)</span>
+        </div></div>
+        <div class="card"><h3>Administration</h3><div class="skill-row">
+          <span class="tag">Active Directory</span><span class="tag">GPO</span><span class="tag">Microsoft 365</span><span class="tag">Intune</span><span class="tag">Windows Server</span><span class="tag">Linux</span>
+        </div></div>
+        <div class="card"><h3>Network & security</h3><div class="skill-row">
+          <span class="tag">DNS</span><span class="tag">SSL/TLS</span><span class="tag">VPN</span><span class="tag">pfSense</span><span class="tag">Cisco</span><span class="tag">MikroTik</span>
+        </div></div>
+        <div class="card"><h3>Automation & DevOps</h3><div class="skill-row">
+          <span class="tag">PowerShell</span><span class="tag">Bash</span><span class="tag">Terraform</span><span class="tag">GitHub Actions</span><span class="tag">Azure DevOps</span><span class="tag">Git</span><span class="tag">n8n</span>
+        </div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <span>© 2026 Anthony Salame</span>
+    <span>Hosted on Azure Storage (France Central) · Deployed with Terraform & GitHub Actions</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How It's Built – Anthony Salame</title>
+  <meta name="description" content="How this site is deployed on Azure with Terraform and GitHub Actions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">anthony<span>.cloud</span></a>
+    <nav>
+      <ul>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#labs">Labs</a></li>
+        <li><a href="deploy.html">How it's built</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="container">
+      <span class="badge">Infrastructure as Code</span>
+      <h1>How this site is <span>built and deployed</span></h1>
+      <p class="lead">
+        No clicking in the portal. The Azure infrastructure is defined in Terraform,
+        and every push to GitHub deploys the site automatically.
+      </p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <h2>Architecture</h2>
+      <p class="sub">Two flows: Terraform creates the infrastructure once, GitHub Actions deploys the content on every push.</p>
+      <div class="diagram">
+        <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif" font-size="13">
+          <defs>
+            <marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#3b9cff"/>
+            </marker>
+          </defs>
+          <!-- Developer -->
+          <rect x="20" y="40" width="150" height="60" rx="10" fill="#152038" stroke="#22314f"/>
+          <text x="95" y="66" fill="#e6ecf5" text-anchor="middle" font-weight="600">Developer</text>
+          <text x="95" y="86" fill="#9aa8c0" text-anchor="middle">git push</text>
+          <!-- GitHub -->
+          <rect x="250" y="40" width="190" height="60" rx="10" fill="#152038" stroke="#22314f"/>
+          <text x="345" y="66" fill="#e6ecf5" text-anchor="middle" font-weight="600">GitHub repository</text>
+          <text x="345" y="86" fill="#9aa8c0" text-anchor="middle">site/ + infra/</text>
+          <!-- Actions -->
+          <rect x="520" y="40" width="210" height="60" rx="10" fill="#152038" stroke="#22314f"/>
+          <text x="625" y="66" fill="#e6ecf5" text-anchor="middle" font-weight="600">GitHub Actions</text>
+          <text x="625" y="86" fill="#9aa8c0" text-anchor="middle">build &amp; deploy workflow</text>
+          <!-- Terraform -->
+          <rect x="20" y="200" width="150" height="60" rx="10" fill="#152038" stroke="#22314f"/>
+          <text x="95" y="226" fill="#e6ecf5" text-anchor="middle" font-weight="600">Terraform</text>
+          <text x="95" y="246" fill="#9aa8c0" text-anchor="middle">terraform apply</text>
+          <!-- Azure box -->
+          <rect x="250" y="170" width="480" height="115" rx="12" fill="rgba(59,156,255,0.06)" stroke="#3b9cff" stroke-dasharray="5 4"/>
+          <text x="266" y="192" fill="#3b9cff" font-weight="600">Azure subscription · rg-portfolio · francecentral</text>
+          <rect x="300" y="205" width="380" height="60" rx="10" fill="#152038" stroke="#22314f"/>
+          <text x="490" y="231" fill="#e6ecf5" text-anchor="middle" font-weight="600">Storage account · static website ($web)</text>
+          <text x="490" y="251" fill="#9aa8c0" text-anchor="middle">France Central · HTTPS only · TLS 1.2 minimum</text>
+          <!-- arrows -->
+          <line x1="170" y1="70" x2="246" y2="70" stroke="#3b9cff" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="440" y1="70" x2="516" y2="70" stroke="#3b9cff" stroke-width="2" marker-end="url(#arr)"/>
+          <path d="M625,100 L625,150 L560,150 L560,201" fill="none" stroke="#3b9cff" stroke-width="2" marker-end="url(#arr)"/>
+          <text x="632" y="140" fill="#9aa8c0">deploy content</text>
+          <line x1="170" y1="230" x2="296" y2="230" stroke="#3ccf8e" stroke-width="2" marker-end="url(#arr)"/>
+          <text x="180" y="220" fill="#9aa8c0">creates</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>The Terraform code</h2>
+      <p class="sub">The whole infrastructure fits in a few lines. Changes are reviewed with <code>terraform plan</code> before they're applied.</p>
+<pre><code>resource "azurerm_storage_account" "site" {
+  name                       = "anthonyportfolio${random_string.suffix.result}"
+  resource_group_name        = azurerm_resource_group.portfolio.name
+  location                   = "francecentral"
+  account_tier               = "Standard"
+  account_replication_type   = "LRS"
+  https_traffic_only_enabled = true
+  min_tls_version            = "TLS1_2"
+}
+
+resource "azurerm_storage_account_static_website" "site" {
+  storage_account_id = azurerm_storage_account.site.id
+  index_document     = "index.html"
+  error_404_document = "index.html"
+}</code></pre>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>Design choices</h2>
+      <div class="grid three">
+        <div class="card">
+          <h3>Cheap and controlled</h3>
+          <p>Standard LRS storage costs a few cents per month for a small site. A Cost Management budget alert acts as a safety net.</p>
+        </div>
+        <div class="card">
+          <h3>Secrets stay out of Git</h3>
+          <p>The storage connection string is stored as a GitHub Actions secret, never in the repository. Terraform state files are git-ignored.</p>
+        </div>
+        <div class="card">
+          <h3>Reproducible</h3>
+          <p>Delete the resource group and run <code>terraform apply</code>: the same infrastructure comes back in minutes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>Deployment flow</h2>
+      <ol class="steps">
+        <li><strong>terraform apply</strong> creates the resource group and a storage account with static website hosting enabled.</li>
+        <li>The storage connection string is read with <code>terraform output</code> and saved as a GitHub secret.</li>
+        <li>Every push to <code>main</code> triggers the GitHub Actions workflow.</li>
+        <li>The workflow uploads the <code>site/</code> folder to the <code>$web</code> container with Azure CLI. The new version is live in about a minute.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <span>© 2026 Anthony Salame</span>
+    <span><a href="index.html">← Back to home</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
