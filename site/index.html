@@ -15,6 +15,65 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ---------- Projects ---------- */
+      .projects { display: grid; gap: 20px; }
+      .project {
+        background: var(--card); border: 1px solid var(--border);
+        border-radius: 16px; overflow: hidden;
+        transition: border-color .2s ease;
+      }
+      .project:hover { border-color: rgba(59,156,255,.45); }
+      .project-main {
+        display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px;
+        padding: 26px 28px;
+      }
+      .project-kicker {
+        display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+        font-size: .78rem; text-transform: uppercase; letter-spacing: .08em;
+        color: var(--muted); margin-bottom: 10px;
+      }
+      .project-kicker .pill {
+        background: var(--accent-soft); color: var(--accent);
+        border-radius: 999px; padding: 3px 10px; letter-spacing: .04em;
+      }
+      .project h3 { font-size: 1.35rem; margin-bottom: 8px; }
+      .project-summary { color: var(--muted); margin-bottom: 14px; }
+      .highlights { list-style: none; display: grid; gap: 10px; align-content: start; }
+      .highlights li {
+        background: var(--bg-alt); border: 1px solid var(--border);
+        border-radius: 10px; padding: 12px 14px; font-size: .92rem;
+      }
+      .highlights li strong { display: block; color: var(--text); font-size: .95rem; margin-bottom: 2px; }
+      .highlights li span { color: var(--muted); }
+      .case-study { border-top: 1px solid var(--border); }
+      .case-study summary {
+        list-style: none; cursor: pointer; padding: 14px 28px;
+        display: flex; justify-content: space-between; align-items: center;
+        color: var(--accent); font-weight: 600; font-size: .95rem;
+      }
+      .case-study summary::-webkit-details-marker { display: none; }
+      .case-study summary::after { content: "Show ↓"; font-weight: 400; color: var(--muted); font-size: .85rem; }
+      .case-study[open] summary::after { content: "Hide ↑"; }
+      .case-study summary:hover { background: rgba(59,156,255,.05); }
+      .case-body {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 22px 32px;
+        padding: 6px 28px 28px;
+      }
+      .case-body h4 {
+        font-size: .78rem; text-transform: uppercase; letter-spacing: .08em;
+        color: var(--accent); margin-bottom: 8px;
+      }
+      .case-body ul { padding-left: 18px; }
+      .case-body li { margin-bottom: 6px; font-size: .94rem; }
+      .case-body .full { grid-column: 1 / -1; }
+      @media (max-width: 760px) {
+        .project-main, .case-body { grid-template-columns: 1fr; gap: 18px; }
+        .project-main { padding: 22px 20px; }
+        .case-study summary { padding: 14px 20px; }
+        .case-body { padding: 4px 20px 22px; }
+      }
+    </style>
   </head>
   <body>
     <header class="nav">
@@ -311,140 +370,236 @@
       <section id="projects">
         <div class="container">
           <h2>Projects</h2>
-          <p class="sub">Applications and pipelines I built and hosted on Azure.</p>
-          <div class="grid two" style="align-items: start">
-            <div class="card">
-              <h3>Cloud Computing Project</h3>
-              <div class="meta">University project · CI/CD &amp; containers</div>
-              <p>
-                Self-hosted build agent on an Azure VM, YAML CI/CD pipelines
-                deploying an ASP.NET app with Azure SQL to App Service, secrets
-                stored in Key Vault, Azure Functions (HTTP and Timer triggers),
-                and the app containerized with Docker and pushed to Azure
-                Container Registry.
-              </p>
-              <div class="tags">
-                <span class="tag">Azure DevOps</span
-                ><span class="tag">Docker</span
-                ><span class="tag">Container Registry</span
-                ><span class="tag">Key Vault</span
-                ><span class="tag">Functions</span>
-              </div>
-            </div>
-            <div class="card lab">
-              <details>
-                <summary>
-                  <div>
-                    <h3>Medilink – AI healthcare platform</h3>
-                    <div class="meta">Final-year project · Team of 3 · Full stack + Azure</div>
-                    <p>
-                      Healthcare platform connecting patients, doctors, hospitals
-                      and administrators. Click to see how it was built.
-                    </p>
+          <p class="sub">
+            Applications and pipelines I built and hosted on Azure. Open a case
+            study to see the architecture, security and how it was delivered.
+          </p>
+
+          <div class="projects">
+            <!-- Cloud Computing Project -->
+            <article class="project">
+              <div class="project-main">
+                <div>
+                  <div class="project-kicker">
+                    <span class="pill">CI/CD &amp; containers</span>
+                    <span>University project</span>
                   </div>
-                </summary>
-                <div class="body">
-                  <h4>What it does</h4>
-                  <ul>
-                    <li>Patients book appointments, chat and make audio/video calls with doctors, and set medication reminders.</li>
-                    <li>Doctors prescribe medication, refer patients to other doctors and request hospital beds.</li>
-                    <li>Hospitals manage and update available beds, departments and staff.</li>
-                    <li>AI assistants (Azure OpenAI): decision support and OCR/NLP document reading for doctors, a help assistant for patients.</li>
-                  </ul>
-                  <h4>Architecture</h4>
-                  <ul>
-                    <li>React frontend, ASP.NET Core REST API backend.</li>
-                    <li>Azure App Service for hosting, Azure SQL Database for healthcare data, Blob Storage for medical documents.</li>
-                    <li>Azure OpenAI and OCR services for the AI features.</li>
-                  </ul>
-                  <h4>Security</h4>
-                  <ul>
-                    <li>JWT authentication with role-based access control (patient, doctor, hospital, admin).</li>
-                    <li>Password hashing, email verification and HTTPS for all traffic.</li>
-                    <li>Audit logs of system and AI activity.</li>
-                  </ul>
-                  <h4>Operations</h4>
-                  <ul>
-                    <li>Admin dashboard to monitor system health, database operations and AI activity.</li>
-                    <li>Backup management from the admin panel.</li>
-                    <li>Tested access control with 20 test accounts across all roles.</li>
-                  </ul>
-                  <h4>My role</h4>
-                  <p>Team of 3 where everyone worked across the whole project: frontend, backend, database and Azure deployment.</p>
+                  <h3>Cloud Computing Project</h3>
+                  <p class="project-summary">
+                    End-to-end delivery of an ASP.NET web app on Azure: from a
+                    self-hosted build agent and YAML pipelines to secrets in Key
+                    Vault and a Docker image running on App Service.
+                  </p>
+                  <div class="tags">
+                    <span class="tag">Azure DevOps</span><span class="tag">YAML pipelines</span
+                    ><span class="tag">Docker</span><span class="tag">Container Registry</span
+                    ><span class="tag">Key Vault</span><span class="tag">Functions</span>
+                  </div>
+                </div>
+                <ul class="highlights">
+                  <li><strong>Self-hosted agent</strong><span>Build agent installed and registered on an Azure VM.</span></li>
+                  <li><strong>CI + CD pipelines</strong><span>Build, then deploy automatically to Azure App Service.</span></li>
+                  <li><strong>Containerized</strong><span>Image pushed to ACR and run on Web App for Containers.</span></li>
+                </ul>
+              </div>
+              <details class="case-study">
+                <summary>Read the case study</summary>
+                <div class="case-body">
+                  <div>
+                    <h4>Pipeline</h4>
+                    <ul>
+                      <li>Work tracked in Azure Boards.</li>
+                      <li>Self-hosted agent on an Azure VM, connected to an agent pool.</li>
+                      <li>CI pipeline builds the app; CD pipeline deploys it to an Azure Web App.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Azure services</h4>
+                    <ul>
+                      <li>App Service and Azure SQL Database for the web app.</li>
+                      <li>Azure Functions with HTTP and Timer triggers, connected to a Storage Account.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Secrets</h4>
+                    <ul>
+                      <li>SQL and Storage connection strings stored as secrets in Azure Key Vault instead of in the code.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Containers</h4>
+                    <ul>
+                      <li>App containerized with Docker and pushed to Azure Container Registry.</li>
+                      <li>Deployed from ACR to Web App for Containers.</li>
+                    </ul>
+                  </div>
+                </div>
+              </details>
+            </article>
+
+            <!-- Medilink -->
+            <article class="project">
+              <div class="project-main">
+                <div>
+                  <div class="project-kicker">
+                    <span class="pill">Final-year project</span>
+                    <span>Team of 3 · Full stack + Azure</span>
+                  </div>
+                  <h3>Medilink – AI healthcare platform</h3>
+                  <p class="project-summary">
+                    One platform for patients, doctors, hospitals and admins:
+                    appointments, video consultations, prescriptions, medication
+                    reminders, hospital beds and AI assistants.
+                  </p>
                   <div class="tags">
                     <span class="tag">React</span><span class="tag">ASP.NET Core</span
                     ><span class="tag">App Service</span><span class="tag">Azure SQL</span
-                    ><span class="tag">Blob Storage</span><span class="tag">Azure OpenAI</span
-                    ><span class="tag">JWT &amp; RBAC</span>
+                    ><span class="tag">Blob Storage</span><span class="tag">Azure OpenAI</span>
+                  </div>
+                </div>
+                <ul class="highlights">
+                  <li><strong>4 roles, one platform</strong><span>Patient, doctor, hospital and admin, with RBAC.</span></li>
+                  <li><strong>AI on Azure</strong><span>Azure OpenAI and OCR/NLP for doctors and patients.</span></li>
+                  <li><strong>Built to operate</strong><span>Admin monitoring, audit logs and backups.</span></li>
+                </ul>
+              </div>
+              <details class="case-study">
+                <summary>Read the case study</summary>
+                <div class="case-body">
+                  <div>
+                    <h4>What it does</h4>
+                    <ul>
+                      <li>Patients book appointments, chat and make audio/video calls with doctors, and set medication reminders.</li>
+                      <li>Doctors prescribe, refer patients to other doctors and request hospital beds.</li>
+                      <li>Hospitals manage available beds, departments and staff.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Architecture</h4>
+                    <ul>
+                      <li>React frontend and ASP.NET Core REST API.</li>
+                      <li>Hosted on Azure App Service, Azure SQL Database for data, Blob Storage for medical documents.</li>
+                      <li>Azure OpenAI and OCR services for AI decision support and document reading.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Security</h4>
+                    <ul>
+                      <li>JWT authentication and role-based access control.</li>
+                      <li>Password hashing, email verification, HTTPS everywhere.</li>
+                      <li>Audit logs of system and AI activity.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Operations</h4>
+                    <ul>
+                      <li>Admin dashboard for system health, database operations and AI activity.</li>
+                      <li>Backup management from the admin panel.</li>
+                      <li>Access control tested with 20 accounts across all roles.</li>
+                    </ul>
+                  </div>
+                  <div class="full">
+                    <h4>My role</h4>
+                    <p>Team of 3 where everyone worked across the whole project: frontend, backend, database and Azure deployment.</p>
                   </div>
                 </div>
               </details>
-            </div>
-            <div class="card lab">
-              <details>
-                <summary>
-                  <div>
-                    <h3>Servify – E-Services platform</h3>
-                    <div class="meta">University project · Project leader · Azure DevOps</div>
-                    <p>
-                      Online platform where citizens request government services,
-                      pay and track their requests. Click to see how it was built.
-                    </p>
+            </article>
+
+            <!-- Servify -->
+            <article class="project">
+              <div class="project-main">
+                <div>
+                  <div class="project-kicker">
+                    <span class="pill">Project leader</span>
+                    <span>University project · Azure DevOps</span>
                   </div>
-                </summary>
-                <div class="body">
-                  <h4>What it does</h4>
-                  <ul>
-                    <li>Three roles: citizens, government offices and admins, each with its own dashboard.</li>
-                    <li>Citizens request services, upload documents, book appointments, chat with offices and leave reviews.</li>
-                    <li>Requests move through clear statuses (Pending, In Review, Missing Docs, Approved, Rejected, Completed).</li>
-                    <li>Each request gets a unique QR code for tracking. Offices are shown on Google Maps.</li>
-                    <li>Online payment by card or cryptocurrency, with automatic PDF invoices and certificates.</li>
-                    <li>Admin reports: requests per office and revenue.</li>
-                  </ul>
-                  <h4>Architecture</h4>
-                  <ul>
-                    <li>Laravel (MVC) backend and responsive Bootstrap frontend.</li>
-                    <li>Hosted on Azure App Service, with Azure SQL Database for data and Azure Blob Storage for uploaded documents (MySQL during local development).</li>
-                    <li>Laravel Mail and Notifications for emails (OTP codes, status changes, appointment reminders).</li>
-                    <li>DomPDF to generate invoices and official documents from templates.</li>
-                  </ul>
-                  <h4>Security</h4>
-                  <ul>
-                    <li>Login with email/password or Google (Laravel Socialite).</li>
-                    <li>Two-factor authentication with a 6-digit email OTP that expires after 5 minutes.</li>
-                    <li>Role-based access checks, so scanning someone else's QR code doesn't reveal their request.</li>
-                  </ul>
-                  <h4>How we worked</h4>
-                  <ul>
-                    <li>Tasks planned and tracked in Azure Boards (backlog items assigned, then marked as done).</li>
-                    <li>Code in Azure Repos with Git branches and pull requests to merge changes without conflicts.</li>
-                  </ul>
-                  <h4>My role</h4>
-                  <p>Project leader: I organized the work in Azure DevOps and developed the platform.</p>
+                  <h3>Servify – E-Services platform</h3>
+                  <p class="project-summary">
+                    Citizens request government services online, upload
+                    documents, pay and track each request with a QR code, while
+                    offices process requests from their own dashboard.
+                  </p>
                   <div class="tags">
                     <span class="tag">Laravel</span><span class="tag">App Service</span
                     ><span class="tag">Azure SQL</span><span class="tag">Blob Storage</span
-                    ><span class="tag">Azure Boards</span
-                    ><span class="tag">Azure Repos</span><span class="tag">2FA</span
-                    ><span class="tag">Google Maps API</span>
+                    ><span class="tag">Azure Boards</span><span class="tag">Azure Repos</span>
+                  </div>
+                </div>
+                <ul class="highlights">
+                  <li><strong>Two-factor login</strong><span>Email OTP that expires after 5 minutes, plus Google sign-in.</span></li>
+                  <li><strong>Automated documents</strong><span>PDF invoices and certificates sent by email.</span></li>
+                  <li><strong>Managed in Azure DevOps</strong><span>Backlog in Boards, branches and pull requests in Repos.</span></li>
+                </ul>
+              </div>
+              <details class="case-study">
+                <summary>Read the case study</summary>
+                <div class="case-body">
+                  <div>
+                    <h4>What it does</h4>
+                    <ul>
+                      <li>Three roles: citizens, government offices and admins, each with a dashboard.</li>
+                      <li>Requests go through Pending, In Review, Missing Docs, Approved, Rejected and Completed.</li>
+                      <li>QR code tracking, Google Maps office finder, chat, reviews and appointment booking.</li>
+                      <li>Card or crypto payments, and revenue reports for admins.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Architecture</h4>
+                    <ul>
+                      <li>Laravel (MVC) backend and responsive Bootstrap frontend.</li>
+                      <li>Hosted on Azure App Service, Azure SQL Database for data, Blob Storage for uploaded documents (MySQL during local development).</li>
+                      <li>Laravel Mail and Notifications, DomPDF for generated documents.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Security</h4>
+                    <ul>
+                      <li>Email/password or Google login (Laravel Socialite).</li>
+                      <li>2FA with a 6-digit email OTP valid for 5 minutes.</li>
+                      <li>Role checks so a scanned QR code never exposes someone else's request.</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>How we worked</h4>
+                    <ul>
+                      <li>Backlog items assigned and tracked to done in Azure Boards.</li>
+                      <li>Code in Azure Repos with Git branches and pull requests.</li>
+                    </ul>
+                  </div>
+                  <div class="full">
+                    <h4>My role</h4>
+                    <p>Project leader: I organized the work in Azure DevOps and developed the platform.</p>
                   </div>
                 </div>
               </details>
-            </div>
-            <div class="card">
-              <h3>E-commerce platform</h3>
-              <div class="meta">Personal project</div>
-              <p>
-                Full-stack shop with a self-hosted AI assistant (local Ollama
-                model), deployed on Azure.
-              </p>
-              <div class="tags">
-                <span class="tag">Next.js</span><span class="tag">Node.js</span
-                ><span class="tag">PostgreSQL</span
-                ><span class="tag">Azure</span>
+            </article>
+
+            <!-- E-commerce -->
+            <article class="project">
+              <div class="project-main">
+                <div>
+                  <div class="project-kicker">
+                    <span class="pill">Personal project</span>
+                    <span>Full stack + AI</span>
+                  </div>
+                  <h3>E-commerce platform</h3>
+                  <p class="project-summary">
+                    Full-stack online shop with a self-hosted AI
+                    assistant running on a local Ollama model, deployed on Azure.
+                  </p>
+                  <div class="tags">
+                    <span class="tag">Next.js</span><span class="tag">Node.js / Express</span
+                    ><span class="tag">Prisma</span><span class="tag">PostgreSQL</span
+                    ><span class="tag">Ollama</span><span class="tag">Azure</span>
+                  </div>
+                </div>
+                <ul class="highlights">
+                  <li><strong>Self-hosted AI</strong><span>AI assistant running on a local Ollama model.</span></li>
+                  <li><strong>Modern stack</strong><span>Next.js frontend, Express API, Prisma ORM on PostgreSQL.</span></li>
+                </ul>
               </div>
-            </div>
+            </article>
           </div>
         </div>
       </section>
