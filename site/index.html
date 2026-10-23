@@ -312,7 +312,7 @@
         <div class="container">
           <h2>Projects</h2>
           <p class="sub">Applications and pipelines I built and hosted on Azure.</p>
-          <div class="grid two">
+          <div class="grid two" style="align-items: start">
             <div class="card">
               <h3>Cloud Computing Project</h3>
               <div class="meta">University project · CI/CD &amp; containers</div>
@@ -331,32 +331,106 @@
                 ><span class="tag">Functions</span>
               </div>
             </div>
-            <div class="card">
-              <h3>Medilink</h3>
-              <div class="meta">Final-year project</div>
-              <p>
-                Healthcare platform for patients, doctors and hospitals with AI
-                clinical assistants.
-              </p>
-              <div class="tags">
-                <span class="tag">App Service</span
-                ><span class="tag">Azure SQL</span
-                ><span class="tag">Blob Storage</span
-                ><span class="tag">Azure OpenAI</span>
-              </div>
+            <div class="card lab">
+              <details>
+                <summary>
+                  <div>
+                    <h3>Medilink – AI healthcare platform</h3>
+                    <div class="meta">Final-year project · Team of 3 · Full stack + Azure</div>
+                    <p>
+                      Healthcare platform connecting patients, doctors, hospitals
+                      and administrators. Click to see how it was built.
+                    </p>
+                  </div>
+                </summary>
+                <div class="body">
+                  <h4>What it does</h4>
+                  <ul>
+                    <li>Patients book appointments, chat and make audio/video calls with doctors, and set medication reminders.</li>
+                    <li>Doctors prescribe medication, refer patients to other doctors and request hospital beds.</li>
+                    <li>Hospitals manage and update available beds, departments and staff.</li>
+                    <li>AI assistants (Azure OpenAI): decision support and OCR/NLP document reading for doctors, a help assistant for patients.</li>
+                  </ul>
+                  <h4>Architecture</h4>
+                  <ul>
+                    <li>React frontend, ASP.NET Core REST API backend.</li>
+                    <li>Azure App Service for hosting, Azure SQL Database for healthcare data, Blob Storage for medical documents.</li>
+                    <li>Azure OpenAI and OCR services for the AI features.</li>
+                  </ul>
+                  <h4>Security</h4>
+                  <ul>
+                    <li>JWT authentication with role-based access control (patient, doctor, hospital, admin).</li>
+                    <li>Password hashing, email verification and HTTPS for all traffic.</li>
+                    <li>Audit logs of system and AI activity.</li>
+                  </ul>
+                  <h4>Operations</h4>
+                  <ul>
+                    <li>Admin dashboard to monitor system health, database operations and AI activity.</li>
+                    <li>Backup management from the admin panel.</li>
+                    <li>Tested access control with 20 test accounts across all roles.</li>
+                  </ul>
+                  <h4>My role</h4>
+                  <p>Team of 3 where everyone worked across the whole project: frontend, backend, database and Azure deployment.</p>
+                  <div class="tags">
+                    <span class="tag">React</span><span class="tag">ASP.NET Core</span
+                    ><span class="tag">App Service</span><span class="tag">Azure SQL</span
+                    ><span class="tag">Blob Storage</span><span class="tag">Azure OpenAI</span
+                    ><span class="tag">JWT &amp; RBAC</span>
+                  </div>
+                </div>
+              </details>
             </div>
-            <div class="card">
-              <h3>E-Services</h3>
-              <div class="meta">Multi-agency platform</div>
-              <p>
-                Online administrative document requests with payments and status
-                tracking.
-              </p>
-              <div class="tags">
-                <span class="tag">App Service</span
-                ><span class="tag">Azure SQL</span
-                ><span class="tag">Blob Storage</span>
-              </div>
+            <div class="card lab">
+              <details>
+                <summary>
+                  <div>
+                    <h3>Servify – E-Services platform</h3>
+                    <div class="meta">University project · Project leader · Azure DevOps</div>
+                    <p>
+                      Online platform where citizens request government services,
+                      pay and track their requests. Click to see how it was built.
+                    </p>
+                  </div>
+                </summary>
+                <div class="body">
+                  <h4>What it does</h4>
+                  <ul>
+                    <li>Three roles: citizens, government offices and admins, each with its own dashboard.</li>
+                    <li>Citizens request services, upload documents, book appointments, chat with offices and leave reviews.</li>
+                    <li>Requests move through clear statuses (Pending, In Review, Missing Docs, Approved, Rejected, Completed).</li>
+                    <li>Each request gets a unique QR code for tracking. Offices are shown on Google Maps.</li>
+                    <li>Online payment by card or cryptocurrency, with automatic PDF invoices and certificates.</li>
+                    <li>Admin reports: requests per office and revenue.</li>
+                  </ul>
+                  <h4>Architecture</h4>
+                  <ul>
+                    <li>Laravel (MVC) backend and responsive Bootstrap frontend.</li>
+                    <li>Hosted on Azure App Service, with Azure SQL Database for data and Azure Blob Storage for uploaded documents (MySQL during local development).</li>
+                    <li>Laravel Mail and Notifications for emails (OTP codes, status changes, appointment reminders).</li>
+                    <li>DomPDF to generate invoices and official documents from templates.</li>
+                  </ul>
+                  <h4>Security</h4>
+                  <ul>
+                    <li>Login with email/password or Google (Laravel Socialite).</li>
+                    <li>Two-factor authentication with a 6-digit email OTP that expires after 5 minutes.</li>
+                    <li>Role-based access checks, so scanning someone else's QR code doesn't reveal their request.</li>
+                  </ul>
+                  <h4>How we worked</h4>
+                  <ul>
+                    <li>Tasks planned and tracked in Azure Boards (backlog items assigned, then marked as done).</li>
+                    <li>Code in Azure Repos with Git branches and pull requests to merge changes without conflicts.</li>
+                  </ul>
+                  <h4>My role</h4>
+                  <p>Project leader: I organized the work in Azure DevOps and developed the platform.</p>
+                  <div class="tags">
+                    <span class="tag">Laravel</span><span class="tag">App Service</span
+                    ><span class="tag">Azure SQL</span><span class="tag">Blob Storage</span
+                    ><span class="tag">Azure Boards</span
+                    ><span class="tag">Azure Repos</span><span class="tag">2FA</span
+                    ><span class="tag">Google Maps API</span>
+                  </div>
+                </div>
+              </details>
             </div>
             <div class="card">
               <h3>E-commerce platform</h3>
